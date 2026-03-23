@@ -2,7 +2,7 @@ from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import (QApplication,QComboBox,QMainWindow,QVBoxLayout,
                              QDialog,QTableWidget,QTableWidgetItem, QLabel, QWidget,
                              QToolBar, QLineEdit, QPushButton)
-from PyQt6.QtGui import QAction
+from PyQt6.QtGui import QAction, QIcon
 import sys
 import sqlite3
 
@@ -15,14 +15,14 @@ class MainWindow(QMainWindow):
         help_menu_item = self.menuBar().addMenu("&Help")
         edit_menu = self.menuBar().addMenu("&Edit")
 
-        add_student_action = QAction("Add Student", self)
+        add_student_action = QAction(QIcon("icons/add.png"),"Add Student", self)
         add_student_action.triggered.connect(self.insert)
         file_menu_item.addAction(add_student_action)
 
         help_action = QAction("About", self)
         help_menu_item.addAction(help_action)
 
-        search_action = QAction("Search", self)
+        search_action = QAction(QIcon("icons/search.png"),"Search", self)
         edit_menu.addAction(search_action)
         search_action.triggered.connect(self.search)
 
@@ -32,7 +32,15 @@ class MainWindow(QMainWindow):
         self.table.verticalHeader().setVisible(False)
         self.setCentralWidget(self.table)
 
+        toolbar = QToolBar()
+        toolbar.setMovable(True)
+        self.addToolBar(toolbar)
+        toolbar.addAction(add_student_action)
 
+        toolbar = QToolBar()
+        toolbar.setMovable(True)
+        self.addToolBar(toolbar)
+        toolbar.addAction(search_action)
 
     def load_data(self):
         connection = sqlite3.connect("database.db")
