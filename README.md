@@ -28,3 +28,11 @@ Follow the exact bash commands below to isolate the environment and launch the a
 git clone https://github.com/Nayanxyz/student-management-system.git
 cd student-management-system
 ```
+**2. Install Dependencies**
+```bash
+pip install PyQt6
+```
+**3. Execute the Application**
+```bash
+python main.py
+```
