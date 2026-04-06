@@ -2,6 +2,10 @@
 
 A lightweight, desktop-based graphical user interface (GUI) application designed to manage student records. Built entirely in Python, this system leverages PyQt6 for a responsive frontend and integrates a local SQLite database for persistent, serverless data storage.
 
+
+<img width="1052" height="832" alt="Student-Management-System" src="https://github.com/user-attachments/assets/8ec3472c-143a-4716-8040-5093c4198b57" />
+
+
 ## 🧠 Engineering Architecture
 This application utilizes a tightly coupled Model-View architecture:
 * **Frontend (View):** Constructed with `PyQt6.QtWidgets`. It utilizes a `QMainWindow` for the primary dashboard and dynamic `QDialog` instances for data entry and modification.
