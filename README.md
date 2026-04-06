@@ -19,3 +19,12 @@ This application utilizes a tightly coupled Model-View architecture:
 * **Database:** SQLite3
 * **System Libraries:** `sys`
 
+## 🚀 Installation & Execution
+
+Follow the exact bash commands below to isolate the environment and launch the application locally.
+
+**1. Clone the repository**
+```bash
+git clone https://github.com/Nayanxyz/student-management-system.git
+cd student-management-system
+```
