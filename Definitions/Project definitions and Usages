@@ -1,0 +1,100 @@
+1. The Core Libraries
+    PyQt6.QtWidgets
+        Definition: The primary toolkit containing the physical,
+                    interactive building blocks for a desktop application.
+
+        Usage: Used to summon every visible element on the screen, including the main window (QMainWindow),
+               buttons (QPushButton), typing boxes (QLineEdit), dropdown menus (QComboBox), and pop-up alerts (QMessageBox).
+
+    PyQt6.QtCore
+        Definition: The engine that handles non-visual, background logic and constants.
+
+        Usage: Used specifically for the Qt object, which provides absolute rules, such as
+                Qt.MatchFlag.MatchFixedString, to ensure the search function looks for exact word
+                matches rather than partial guesses.
+
+    PyQt6.QtGui
+        Definition: The library that handles 2D graphics and visual styling elements.
+
+        Usage: Used to import QIcon (to put small pictures on buttons) and QAction
+                (to create clickable items inside the top menu bar).
+
+    sqlite3
+        Definition: The built-in Python database engine.
+
+        Usage: Used to translate the Python script's intent into raw SQL queries,
+                allowing the application to permanently read, write, and delete records in the local database.db file.
+
+    sys
+        Definition: A system-level library that interacts directly with the computer's operating system.
+
+        Usage: Used strictly to pass computer system arguments to the app upon launch
+                (sys.argv) and to cleanly terminate the program when the window is closed (sys.exit()).
+
+2. The Custom Classes and Methods
+
+    Class: DatabaseConnection
+        Definition: A custom blueprint strictly dedicated to managing the
+                    pathway between the Python app and the SQL database.
+
+        Method: __init__: Sets the default target file to database.db.
+
+        Method: connect: Physically opens and returns the active pipeline to the database so other classes can
+                         send data through it.
+
+    Class: MainWindow (Inherits from QMainWindow)
+        Definition: The primary, persistent desktop window that holds the main data table and toolbars.
+
+        Method: __init__: The assembly line. It builds the 800x600 window, constructs the top menu bars,
+                            sets up the table columns (Id, Name, Course, Mobile), and wires the menu buttons
+                            to their respective functions.
+
+        Method: load_data: The retrieval engine. It queries the database for every existing student
+                            record and uses a loop to inject that data into the visual table, row by row.
+
+        Method: cell_clicked: A dynamic trigger. When a mouse clicks a specific row in the table,
+                                this method spawns the "Edit Record" and "Delete Record" buttons at the bottom of the screen.
+
+        Methods: insert, search, edit, delete, about: These are simple trigger switches.
+                 Their only job is to summon the corresponding pop-up dialog box when a button is pressed.
+
+    Class: AboutDialog (Inherits from QMessageBox)
+        Definition: A simple, static notification window.
+
+        Method: __init__: Hardcodes the text "This app is created to store student's information..."
+                            and displays it on the screen.
+
+    Class: InsertDialog (Inherits from QDialog)
+        Definition: A pop-up form containing blank fields to collect new student data.
+
+        Method: __init__: Draws the blank text boxes, the dropdown menu for courses, and the "Submit" button.
+
+        Method: add_student: Extracts the typed text from the boxes, connects to the database,
+                executes an INSERT INTO SQL command to save the new row, closes the connection,
+                and commands the main window to refresh the table.
+
+    Class: EditDialog (Inherits from QDialog)
+        Definition: A pop-up form designed to modify existing records.
+
+        Method: __init__: Identifies exactly which row was clicked in the main table,
+                            extracts that specific data, and pre-fills the text boxes so they can be modified.
+
+        Method: update_student: Executes an UPDATE SQL command, overwriting the old database
+                                record with whatever new text was typed into the boxes.
+
+    Class: DeleteDialog (Inherits from QDialog)
+        Definition: A safety checkpoint pop-up asking for confirmation before data destruction.
+
+        Method: __init__: Generates a window asking "Are you sure you want to delete?" with Yes/No buttons.
+
+        Method: delete_student: If "Yes" is clicked, it identifies the hidden ID of the selected student,
+                                 executes a DELETE from students WHERE id = ? SQL command, wipes the record,
+                                  and flashes a "Success" message.
+
+    Class: SearchDialog (Inherits from QDialog)
+        Definition: A locator pop-up used to find specific students.
+
+        Method: __init__: Generates a single search bar and a "Search" button.
+
+        Method: search: Takes the typed name, queries the database, and if a match is found,
+                        visually highlights the correct row on the main desktop window behind the pop-up.
